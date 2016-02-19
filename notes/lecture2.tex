@@ -1,0 +1,65 @@
+\documentclass[letter, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture Two}
+\begin{document}
+\maketitle
+
+\section{Grading}
+Homework: 40\% weekly, Midterm: 30\% - Take home 17.3, Final(project): 30\%
+
+\begin{itemize}
+\item Read chapter 1 this week!!
+\item Chapter 2: 2.1-2.3, 2.5
+\item Chapter 3: 3.1-3.5
+\item Chapter 4: 4.3 4.4, 4.5
+\item Chapter 7: 7.3
+\item Chapter 8: 8.2
+\item Chapter 10: 10.1 Boosting
+\item Chapter 11: Neural Networks
+\item Chapter 12: SVM
+\end{itemize}
+
+\section{Linear Regression}
+Parametric Model represents a linear regression. K-NN is a non-parametric model. In the case of a linear regression representing a line a $\mathbb{R}^2$ you would have two parameters: $y = ax + b$. In $\mathbb{R}^3$ you would have $3$ parameters that would represent a plane. This is the plane that is used to segment the space into the two classified spaces.
+
+\begin{equation}
+y = a_0 + a_1 x_1^i + \dots + a_n x_n^i
+\end{equation}
+\begin{equation}
+y = \begin{bmatrix} 1 & x_1^i & x_2^i & \dots & x_n^i \end{bmatrix} * \begin{bmatrix} a_0\\a_1\\ \vdots \\ a_n\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\vec{y} = \begin{bmatrix} 1 & x_1^1 & x_2^1 & \dots & x_n^1\\
+                     1 & x_1^2 & x_2^2 & \dots & x_n^2\\
+                     \vdots & \vdots & \vdots & \ddots & \vdots \\
+                     1 & x_1^n & x_2^n & \dots & x_n^n\end{bmatrix} * \begin{bmatrix} a_0 \\ a_1 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix} e_1 \\ e_2 \\ \vdots \\ e_n\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\vec{y} = X\vec{a}
+\end{equation}
+
+\subsection{Derivative properties with matrices}
+
+
+\subsection{Classification}
+\begin{enumerate}
+\item Build $X$ and $y$ %todo make vector
+Where $X$ is your features and $y$ is your classification result
+\item Compute $a = (X^TX)^{-1}X^Ty$
+\item Apply Classifier: New data is given $\leftarrow (z^T = [z_1, z_2, \dots,z_n]$
+Compute : $f(z)$
+\item if $f(z) \geq 0, z \in P$ \\ if $f(z) < 0, z \in N$
+\section{Weekly Homework}
+Build a K-NN classifier for digits
+\begin{itemize}
+\item classes: 0-9
+\item features: a matrix of features with the last column being the classification of the feature
+\end{itemize}
+produce an estimate of the error rate to compare a K-NNS classifier to a LSE Linear regression classifier. Determine the difference in error rate for difference K's in the K-NNS classifier.
+\subsection{Due Date}
+The homework is due the following Thursday!
+\end{document}
