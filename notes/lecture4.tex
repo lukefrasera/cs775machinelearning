@@ -1,0 +1,51 @@
+\documentclass[letter, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture Three}
+\begin{document}
+\maketitle
+\section{Gaussian Classifiers}
+\begin{equation}
+(\vec{x} - \vec{u})(\frac{1}{N} \sum(\vec{x} - \vec{\mu})(\vec{x} - \vec{\mu})^T)(\vec{x} - \vec{\mu})
+\end{equation}
+\begin{equation}
+(\vec{x} - \vec{\mu})\Sigma^{-1}(\vec{x} - \vec{\mu})^T
+\end{equation}
+Multi-dimensional Gaussian distribution
+\begin{equation}
+P(\vec{x}) = \frac{1}{\sqrt{||2 \pi \Sigma ||}}e^{-\frac{1}{2}(\vec{x} - \vec{\mu})^T \Sigma^{-1}(\vec{x} - \vec{\mu})}
+\end{equation}
+Steps for developing a gaussian classifier
+\begin{enumerate}
+\item Center the data
+\item Compute the covariance matrix
+\end{enumerate}
+Projection of the Mean Value
+\begin{equation}
+\frac{1}{N}\sum^N_{i=1}(\vec{x}^T \vec{a}) = (\frac{1}{N} \sum \vec{x_i})^T \vec{a} = \vec{\mu}^T \vec{a}
+\end{equation}
+
+Projection of the Variance
+\begin{equation}
+\sigma^2 = \frac{1}{N} \sum^{N}_{i=1} (\vec{a}^T\vec{x_i} - \vec{a}^T \vec{\mu})(\vec{x_i}^T\vec{a} - \vec{\mu}^T\vec{a})
+\end{equation}
+
+\section{Homework 2}
+\begin{itemize}
+\item Part A: Redo Homework 1
+\begin{itemize}
+\item Use Gaussian Classifiers
+\end{itemize}
+\item Part B: Do the cancer problem in the book and apply subset selection
+\begin{itemize}
+\item Redraw Chapter 3 Fig. 3.5 with the data from the book for the cancer set selection.
+\item prostate cancer example
+\end{itemize}
+\end{itemize}
+
+If the covariance matrix is not invertable then you can add a piece of the identity matrix to make the matrix more invertible.
+\begin{equation}
+(\Sigma + \lambda I)^{-1}
+\end{equation}
+\end{document}

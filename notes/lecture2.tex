@@ -24,6 +24,7 @@ Homework: 40\% weekly, Midterm: 30\% - Take home 17.3, Final(project): 30\%
 \section{Linear Regression}
 Parametric Model represents a linear regression. K-NN is a non-parametric model. In the case of a linear regression representing a line a $\mathbb{R}^2$ you would have two parameters: $y = ax + b$. In $\mathbb{R}^3$ you would have $3$ parameters that would represent a plane. This is the plane that is used to segment the space into the two classified spaces.
 
+\subsubsection{Least Squared Error}
 \begin{equation}
 y = a_0 + a_1 x_1^i + \dots + a_n x_n^i
 \end{equation}
@@ -41,7 +42,9 @@ y = \begin{bmatrix} 1 & x_1^i & x_2^i & \dots & x_n^i \end{bmatrix} * \begin{bma
 \begin{equation}
 \vec{y} = X\vec{a}
 \end{equation}
-
+\begin{equation}
+min(E = (\vec{y} - X\vec{a})^T(\vec{y} - X\vec{a}))
+\end{equation}
 \subsection{Derivative properties with matrices}
 
 
