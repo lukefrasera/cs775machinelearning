@@ -1,0 +1,102 @@
+\documentclass[letter, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture 7}
+\begin{document}
+\maketitle
+
+\section{Expectation Maximization}
+Maximize:
+\begin{equation}
+\int p \ln(p) + \lambda_1(\int px - \mu) + \lambda_2(\int p(x - \mu)^2 - \sigma^2)
+\end{equation}
+
+\begin{equation}
+\ln(p) + p\frac{1}{p} + \lambda_1 x + \lambda_2(x - \mu)^2 = 0
+\end{equation}
+\begin{equation}
+p = e^{Q(x)}
+\end{equation}
+
+\section{Perception Learning}
+
+Let there be two classes: $P = \vec{p}_1, \vec{p}_2, \dots, \vec{p}_n$, $N = \vec{n}_1, \vec{n}_2, \dots, \vec{n}_n$Compute a linear regression and add everything together and make a decision on the class. The goal is to find the vector that will produce a positive dot product when multiplying one class and a negative dot product when multiplying the other class. The positive space is known as the \emph{positive half-space} and the negative space is known as the \emph{negative half-space}.
+
+Perception Learning:
+\begin{enumerate}
+\item \textbf{start}: $\vec{\beta}_0 = random vector$
+\item \textbf{test} Pick $\vec{x} \in P\cup N$ randomly
+\item \textbf{Case P}: $\vec{x} \in P$, if $\vec{\beta}_i^T \vec{x} \geq 0$ then goto \emph{test}
+\item \textbf{otherwise} $\vec{\beta}_{i+1} = \vec{\beta}_i + \vec{x}, i++$ goto \emph{test}
+\item \textbf{Case N}: if $\vec{x} \in N$ if $\vec{\beta}^T \vec{x} < 0$ then goto \emph{test}
+\item \textbf{otherwise} $\vec{\beta}_{i+1} = \vec{\beta}_i - \vec{x}, i++$ goto \emph{test}
+\end{enumerate}
+
+The algorithm updates $\vec{\beta}_i$ a finite number of times. It is a self adjusting algorithm that as the $\beta$ gets close to the solution it will get larger and the contribution of each addition will effect the vector less.
+
+\subsection{Pocket Algorithm}
+Perception leanrning, count number of errors for each $\vec{\beta}_i$. The picket contains the best $\vec{\beta}_i$ so far. You exchange the it with the next best each time. You iterate.
+
+\subsection{Exact Solution}
+Linear programming. Will either find a solution or tell you when there is no solution.
+
+\emph{notes}: rojas ``neural networks'' ``perception'', ``why the gauussian dsitribution?'', ``bias variance dilemma'', ``Logistic regression''.
+
+\section{Lgistic Regression}
+Logistic regression fins a compromise between the perfect solution and what that deals with  errors. This is an improvement upon \emph{perception learning}.
+
+\begin{equation}
+P(\vec{x}, \vec{\beta}) = \frac{e^{\vec{\beta}^T\vec{x}}}{1 + e^{\vec{\beta}^T\vec{x}}}
+\end{equation}
+
+Regression:
+\begin{equation}
+\vec{\beta}^T\vec{x} = \beta_0 + \beta_1 x_1 + \dots + \beta_n x_n
+\end{equation}
+
+Positive:
+\begin{equation}
+P(\vec{x}, \vec{beta}) = \frac{e^{\vec{\beta}^T\vec{x}}}{1 + e^{\vec{\beta}^T\vec{x}}}
+\end{equation}
+Negative:
+\begin{equation}
+P(\vec{x}, \vec{beta}) = \frac{1}{1 + e^{\vec{\beta}^T\vec{x}}}
+\end{equation}
+
+Likelihood:
+\begin{equation}
+\label{eq:likelihood}
+L(\vec{\beta}) = \prod^{N_1} P(\vec{x_i}, \vec{\beta}) \prod^{N_2} (1 - P(\vec{x_i}, \vec{\beta}))
+\end{equation}
+Maximum likelihood will maximize the equation~\ref{eq:likelihood} by finding a $\beta$. maximizing products is hard, but if you take the $log$ of the probabilities then you can deal with additions instead of products. As well $log$ is a monotonically increasing function that allows you to find the maximum easier.
+\begin{equation}
+l(\vec{\beta}) = \sum^{N_1}log(P(\vec{x_i}, \vec{\beta})) + \sum^{N_2}log(1 - P(\vec{x_i}, \vec{\beta}))
+\end{equation}
+
+\begin{equation}
+l(\vec{\beta}) = \sum^{N_1}\vec{\beta}^T\vec{x} - log(1 + e^{\vec{\beta}^T\vec{x}}) + \sum^{N_2}log(1 + e^{\vec{\beta}^T\vec{x}}))
+\end{equation}
+
+Maximize:
+\begin{equation}
+\label{eq:logliklihood}
+l(\vec{\beta}) = \sum^{N}y_i\vec{\beta}^T\vec{x} - log(1 + e^{\vec{\beta}^T\vec{x}}) + \sum^{N}log(1 + e^{\vec{\beta}^T\vec{x}})),~y_i = 1~\text{for Pos}~ \&~y_i = 0 ~\text{for Neg}
+\end{equation}
+
+Use gradient ascent to maximize equation~\ref{eq:logliklihood}.
+\begin{equation}
+\frac{d l(\vec{\beta})}{d \vec{\beta}} = \sum^N y_i \vec{x_i} - \sum^N \frac{e^{\vec{\beta^T}\vec{x_i}} \vec{x_i}}{1 + e^{\vec{\beta^T}\vec{x_i}}}
+\end{equation}
+
+\begin{equation}
+\nabla{l(\vec{\beta})} = \sum^N \vec{x_i}(y_i - P(\vec{x_i}, \vec{\beta}))
+\end{equation}
+
+Gradient Ascent:
+\begin{equation}
+\vec{\beta_{new}} = \vec{\beta_{old}} + \alpha \nabla{l(\vec{\beta})}
+\end{equation}
+\section{Homework}
+Recover 10 clusters using the EM-Algorithm for gaussians.
+\end{document}

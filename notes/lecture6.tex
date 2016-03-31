@@ -1,0 +1,37 @@
+\documentclass[letter, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture Three}
+\begin{document}
+\maketitle
+
+
+\section{EM-Algorithm}
+Bias-Variance Dilema
+
+\subsection{Gaussian}
+Since gaussians are simple we like to use them.
+
+\begin{itemize}
+\item Supervise Learning: training with labels
+\item Unsupervised Learning: training without labels
+\end{itemize}
+
+The idea of unsupervised learning involves the idea of clustering. The main assumption being that the data models fit into local clusters that can be registered.
+
+Each class is described by a gaussian: $\vec{\mu}, \Sigma$.
+
+EM:
+\begin{enumerate}
+\item Pick $\mu_1, \mu_2, \dots, \mu_3$ randomly. The covariance matrix is round at intialization. This implies: $\Sigma_1 = \Sigma_2 = \dots = \Sigma_n = I$.
+\item \textbf{Expectation Step}: Assign data points to the classes according to the randomly defined Gaussians.
+\item \textbf{Maximization Step}: Compute the center of the Assignment. Then you move center of each gaussian $\mu$ to the center of the assignments. Update $\mu_1, \mu_2, \dots, \mu_n$ as the centroids of the preliminary class assignment. Update $\Sigma_1, \Sigma_2, \dots, \Sigma_n$
+\end{enumerate}
+
+\section{Homework}
+
+Perform the EM algorithm on the entire training set of digits to compute the the different classes not knowing the original labels.
+
+Perform the calculations on both the training set and test set.
+\end{document}
