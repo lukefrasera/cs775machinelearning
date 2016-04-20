@@ -1,0 +1,99 @@
+\documentclass[letterpaper, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture eleven}
+\begin{document}
+\maketitle
+\section{AdaBoost}
+
+short for adaptive boosting bindary classifier.
+\begin{equation}Committee =
+\begin{cases}
+k_1(\vec{x}) = \pm1 \\
+k_2(\vec{x}) = \pm1 \\
+\vdots \\
+k_n(\vec{x}) = \pm1 \\
+\end{cases}
+\end{equation}
+
+\begin{equation}
+k(x) = c_1k_1(\vec{x}) + c_2k_2(\vec{x}) + \dots + c_nk_n(\vec{x})
+\end{equation}
+
+\section{Viola-Jones Classifier}
+$5000$ face $\in P$ and $5000$ non-faces $\in N$.
+
+\begin{enumerate}
+\item Test the classifiers
+\begin{tabular}{c|cccc}
+~ & 1 & 2 & \dots & L \\ \hline
+$\vec{x}_1$ & 1 & 1 & \dots & ~ \\
+$\vec{x}_2$ & 1 & 1 & \dots & ~ \\
+\vdots & \vdots & \vdots & \vdots & \vdots \\
+$\vec{x}_n$ & 0 & 1 & \dots & ~ \\
+\end{tabular}
+Error rate = $\frac{\# hits}{N}$
+\item the penalty for a miss is bigger than for a hit.
+\item \textbf{TEAM} \\
+\begin{tabular}{c|cccc|c}
+~ & $k_1$ & $k_2$ & \dots & $k_m$ & Total Error\\ \hline
+$\vec{x}_1$ & $e^{-d_1}$ & $e^{-d_2}$ & \dots & $e^{-d_m}$ & $\prod_{i=1}^{-k_i(x_1)y_id_i}$ \\
+$\vec{x}_2$ & $e^{-d_1}$ & $e^{-d_2}$ & \dots & $e^{-d_m}$ & $\prod_{i=1}^{-k_i(x_2)y_id_i}$ \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+$\vec{x}_n$ & $e^{-d_1}$ & $e^{-d_2}$ & \dots & $e^{-d_m}$ & $\prod_{i=1}^{-k_i(x_n)y_id_i}$ \\ \hline
+~ & $\alpha_1$ & $\alpha_2$ & \dots & $\alpha_m$ & $\sum \text{all team erros}$
+\end{tabular}
+\end{enumerate}
+
+\begin{equation}
+E = \sum^{N}_{i=1}e^{-y_i (C_{m-1}(\vec{x}_i) + \alpha_m k_m(\vec{x}_i))}
+\end{equation}
+\begin{equation}
+C_{m-1}(\vec{x}_i) = \alpha_1k_1(\vec{x}_i) + \alpha_2  k_2(\vec{x}_i) + \dots + \alpha_{m-1}k_{m-1}(\vec{x}_i)
+\end{equation}
+
+\begin{equation}
+E = \sum_{i=1}^{N} e^{-y_iC_{m-1}(\vec{x}_i)}e^{-y_i\alpha_mk_m(\vec{x}_i)}
+\end{equation}
+\begin{equation}
+E = \sum_{i=1}^N \omega_i^{(m)}e^{-y_i\alpha_mk_m(\vec{x}_i)}
+\end{equation}
+
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{Team} \\ \hline
+~ & ~ & $k_m$ \\ \hline
+$\vec{x}_1$ & $\omega_1^{(m)}$ & hit \\
+$\vec{x}_1$ & $\omega_1^{(m)}$ & hit \\
+\vdots & \vdots & \vdots \\
+$\vec{x}_1$ & $\omega_1^{(m)}$ & hit \\
+\end{tabular}
+
+\begin{equation}
+\begin{split}
+E &= \sum_{y_i = k_m(x_i)}^N \omega_i^m e^{-\alpha_m} + \sum_{y_i \neq k_m(x_i)}^N \omega_i^m e^{\alpha_m} \\
+E &= W_c e^{-\alpha_m} + W_e e^{\alpha_m}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+e^{\alpha_m}E &= W_c + W_e e^{2\alpha_m} \\
+e^{\alpha_m}E &= (W_c + W_e) + W_e(e^{2\alpha_m} - 1)
+\end{split}
+\end{equation}
+
+In order to minimize $E$ we need to pick the classifier with the lowest weighted error of misses $W_e$.
+
+Compute the $\alpha_m$
+\begin{equation}
+\begin{split}
+\frac{dE}{d\alpha_m} &= -W_c e *{-\alpha_m} + W_ee^{\alpha_m} = 0 \\
+&= -W_c + W_e e^{2\alpha_m} = 0 \\
+e^{2\alpha_m} &= \frac{W_c}{W_e} \\
+2\alpha_m &= ln \left (\frac{W_c}{W_e} \right )
+\end{split}
+\end{equation}
+If ou want to have 20 classifiers in your committes then you run the algorithm 20 times.
+\end{document}

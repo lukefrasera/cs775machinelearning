@@ -1,0 +1,69 @@
+\documentclass[letterpaper, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture eleven}
+\begin{document}
+\maketitle
+\section{SVM}
+
+\begin{equation}
+c>0 ~|~ c\vec{w} c\vec{x} + cb \geq \epsilon c
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\vec{\omega} \vec{x}_i + b \geq & +1,~\vec{x}_i \in P, ~ y_i = +1 \\
+\vec{\omega} \vec{x}_i + b \geq & -1,~\vec{x}_i \in N, ~ y_i = -1
+\end{split}
+\end{equation}
+
+Minimize
+\begin{equation}
+L_p = \frac{1}{2} ||\vec{\omega}||^2 - \sum^N \alpha_i y_i(\vec{x}_i \vec{\omega} + b) + \sum^N \alpha_i
+\end{equation}
+
+Distance between a point an a line
+\begin{equation}
+d = \frac{ax_i + by_i +c}{\sqrt{a^2 + b^2}}
+\end{equation}
+
+Line: $\omega_1 x_1 + \omega_2 x_2 + b$ \\
+Line: $\vec{\omega} = \begin{bmatrix} \omega_1 \\ \omega_2 \end{bmatrix}, \vec{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$
+
+Lagrange multipliers are a method of minimization with constraints. you are able to put the constriants in the equation to using lagrange multipliers. Now that we have the lagrange multipliers we have to take partial derivatives to minimize the equations.
+
+\begin{equation}
+\begin{split}
+\frac{\partial L_p}{\partial \vec{\omega}} =& 0 \\
+\frac{\partial L_p}{\partial \vec{\alpha_i}} =& 0 \\
+\frac{\partial L_p}{\partial \vec{b}} =& 0
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\frac{\partial L_p}{\partial \vec{\omega}} =& \vec{\omega} - \sum^N \alpha_i y_i x_i = 0 \\
+\frac{\partial L_p}{\partial \vec{\alpha_i}} =& 0 \\
+\frac{\partial L_p}{\partial \vec{b}} =& -\sum^N \alpha_i y_i = 0
+\end{split}
+\end{equation}
+
+This has all been the linear case. Now we will consider the nonlinear case.
+Maximize Dual:
+\begin{equation}
+L_D = \sum^N \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j \vec{x}_i * \vec{x}_j
+\end{equation}
+
+Quadratic problems can be described as a primal form and a duel form. these are the two expression shown prior. If the primal problem is a minimzation problem then the duel problem is a maximization problem.
+
+Non-linear: $\vec{x}_i 8 \vec{x}_j \leftarrow$ distance function. 
+
+Max:
+\begin{equation}
+L_D = \sum^N \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j K(\vec{x}_i,\vec{x}_j)
+\end{equation}
+
+\subsection{Examples}
+
+\end{document}
