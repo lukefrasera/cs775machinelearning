@@ -1,0 +1,95 @@
+\documentclass[letterpaper, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture eleven}
+\begin{document}
+\maketitle
+\section{Homework}
+last homework assignment.
+\begin{itemize}
+\item generate a data set: binary class
+\item place gaussians on a plane and form a negative and a positive class. They can be placed by hand.
+\item This will form a positive and negative class.
+\item randomly sample the space to generate the data set.
+\item Train an SVM on the dataset using the SMO algorithm.
+\item Plot the result (like in Tibshirani's book)
+\end{itemize}
+\section{SVM}
+A tutorial on SMCs for pattern recognition: Chris Burges. Skip past the beginning that has information not necessary for the implimentation of the SVM.
+
+Sequential minimal optimization \\
+John Platt
+
+\section{SMO}
+
+previous equations:
+Minimize
+\begin{equation}
+L_p = \frac{1}{2} ||\vec{\omega}||^2 - \sum^N \alpha_i y_i(\vec{x}_i \vec{\omega} + b) + \sum^N \alpha_i
+\end{equation}
+
+Max:
+\begin{equation}
+L_D = \sum^N \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j K(\vec{x}_i,\vec{x}_j)
+\end{equation}
+
+\begin{equation}
+\vec{\omega} = \sum^N_{i=0} \alpha_i y_i \vec{x}_i
+\end{equation}
+
+\begin{equation}
+\sum \alpha_i y_i = 0
+\end{equation}
+
+\begin{equation}
+\alpha_i \geq 0, ~|~\alpha_j \leq C
+\end{equation}
+
+
+The support vecotrs are the ones where the $\alpha_i \neq 0$. Everything else $\alpha_i = 0$. To prevent the unclassifiable points alpha from approaching infinitiy you must place a bounds on the alphas. This bounds provides the algorithm with some tolerance on the solution so that the SVM can find a solution. if you don't limit the alphas then you reduce the algorithm into nearest neighbors search. At that point you have to store the complete dataset. The goal is to minimize the number of support vectors. To do this you will limit the alphas.
+
+Typically people will rate the classifier by the ratio of the number of training samples to the number of support vectors. $N$-Training samples $s$-support vectors: $\frac{s}{N}$.
+
+Conditions(KKT):
+\begin{equation}
+\begin{split}
+\alpha_i = 0 \leftarrow& y_iu_i \geq 1\\
+0 < \alpha_i < C \leftarrow& y_iu_i = 1 \\
+\alpha_i = C \leftarrow& y_i u_i \leq
+\end{split}
+\end{equation}
+
+SMO:\\
+\begin{enumerate}
+\item go through the trianing set and look for a point not fullfilling the KKT condition.
+\begin{enumerate}
+\item If there is no such point $\rightarrow$ FINISH
+\item if there is a point $\vec{x}_1$, look for a point $\vec{x}_2$ in the trianing set. This point can be picked randomly.
+\begin{enumerate}
+\item $y_1 != y_2$: $\rightarrow \alpha_1 - \alpha_2 = k$
+\item $y_1 = y_2$: $\rightarrow \alpha_1 + \alpha_2 = k$
+\end{enumerate}
+\end{enumerate}
+\item Fit $\alpha_2$
+\begin{enumerate}
+\item bounds on $\alpha_2~|~y_1\neq y_2$:
+\begin{equation}
+\begin{cases}
+L = max(0, \alpha_2 - \alpha_1) \\
+H = min(c, c + \alpha_2 - \alpha_1)
+\end{cases}
+\end{equation}
+\item bounds on $\alpha_2~|~y_1=y_2$:
+\begin{equation}
+\begin{cases}
+L = max(0, \alpha_2 + \alpha_1- c) \\
+H = min(c, \alpha_2 + \alpha_1)
+\end{cases}
+\end{equation}
+\end{enumerate}
+\end{enumerate}
+
+if you compute the curvature of a quadratic equation you can find the minimum alpha in on esingle step.
+
+\end{document}
