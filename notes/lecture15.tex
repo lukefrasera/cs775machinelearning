@@ -1,0 +1,205 @@
+\documentclass[letterpaper, 9pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Lecture eleven}
+\begin{document}
+\maketitle
+\section{Final - non negative matrix factorization}
+Data needs to be vectorized. The W is the code book (basis). There is the code h. We need to develop code books that will describe good features.
+
+From the images we need to generate the code book as well as the code. This method is called a factorization of a vector into two matrices. The code book should extract different features.
+
+In the real-world case we turn many images into a codebook and many codes for each image. Get a factorization of the dataset into a code book and a matirx of codes.
+
+\section{methods}
+\begin{itemize}
+\item vector quantization
+\begin{itemize}
+\item clustering - similar to Expectation maximization algorithm.
+\item Linde-buzo-gray
+\item nearest neighboars
+\end{itemize}
+With this you can generate basis vectors in the data set. You can then reconstruct the image from the basis vectors. This is one solution to the code book problem.
+\item Principle components: [eigen faces]
+\begin{itemize}
+\item Eigenvectors of the covariance matrix.
+\item Eigenfaces: since the eigen vectors are orthoganol you get a new basis from the eigenvectors.
+\item You don't need all of the eigenvectors to get good vectors. you want the eigenvectors with the highest eigen value.
+\end{itemize}
+You can then generate a code book from the eigen vectors to reconstruct the original images.
+\item non-negative Matrix factorization
+\begin{itemize}
+\item basis W and code H are positive or zero
+\item error V-V' is minimized
+\item Algorithm:
+\begin{itemize}
+\item Ezpectatioin-maximization (EM)-algorithm
+\item W and H are optimized alternatively
+\item Error function: distance
+\begin{equation}
+||V - V'||^2 = \sum_{ij}(v_{ij} - v_{ij}')^2
+\end{equation}
+Kullback-leiber difference:
+\begin{equation}
+D(V||V') = \sum_{ij} \left ( v_{ij} log(\frac{v_{ij}}{v_{ij}'}) - v_{ij} + v_{ij}' \right )
+\end{equation}
+\item  Algorithm:
+\begin{equation}
+W_{ia} \leftarrow W_{ia} \sum_\mu \frac{V_{i\mu}}{V_{i\mu}'}h_{a\mu}
+\end{equation}
+\begin{equation}
+W_{ia} \leftarrow \frac{W_{ia}}{\sum_j W_{ja}}
+\end{equation}
+\begin{equation}
+h_{a\mu} \leftarrow h_{a\mu} \sum_i W_{ia} \frac{V_{i\mu}}{V_{i\mu}'}
+\end{equation}
+$i$ is the row and $a$ is the column in $W$. $\mu$ is the column of H and $V/V'$. $\mu$ is running over the training set. $a$ is the row in H.
+\end{itemize}
+\item Gradient Descent:
+\begin{equation}
+\frac{D(v||v')}{\partial v'} = - \frac{v}{v'} + 1
+\end{equation}
+This is a method for converting gradient descent into a multiplication.
+\begin{equation}
++ \sum_{ijk} W_{ik}W_{ij} + \sum_{ij}
+\end{equation}
+missing things.
+\end{itemize}
+\end{itemize}
+
+The use of code books can reduce the dimensionality of the features in the classification problem. By doing the dimensionality reduction the classifier is given a much better feature to classify.
+\section{Literature}
+Daniel lee and sebastian Seung: learning the parts of objects by non-negative matrix factorization
+
+Daniel Lee and Sebastian Seung: algorithms for Non-negative Matrix Factorization.
+
+Yuan Wang et al.: fisher Non-negative Matrix Factorization for learning Local Features.
+
+\section{Second approach to building features}
+\subsection{Fourier Transform}
+A spectrogram is a display of the frequencies in time with respect to a delta t.
+
+\section{Hadamard Transform}
+\begin{equation}
+H_2 = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 & 1\\
+1 & -1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\vec{b} = H_2\vec{a}
+\end{equation}
+
+\begin{equation}
+H_4 = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+H_2 & H_2\\
+H_2 & -H_2
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+b_{2^n} = H_{2^n}a_{2^n}
+\end{equation}
+
+\begin{equation}
+\begin{bmatrix}
+b_1\\
+b_2\\
+b_3\\
+b_4
+\end{bmatrix}
+ = 
+\frac{1}{2}
+\begin{bmatrix}
+1 & 1 & 1 & 1\\
+-1 & 1 & -1 & 1\\
+-1 & -1 & 1 & 1\\
+1 & -1 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+a_1\\
+a_2\\
+a_3\\
+a_4
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+P' = H_{2^n} P H_{2^n}
+\end{equation}
+
+\begin{equation}
+P = H_{2^n}P'H_{2^n}
+\end{equation}
+
+You can perform a low pass filter of an image by removing the high frequency terms.  This is accomplished by setting the high frequency features to zero.
+
+\subsection{FHT}
+\begin{equation}
+\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+H_2 & H_2\\
+H_2 & -H_2
+\end{bmatrix}
+\begin{bmatrix}
+a_1\\
+a_2\\
+a_3\\
+a_4
+\end{bmatrix}
+=
+\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+H_2a_u + H_2a_l\\
+H_2a|u - H_2a_l
+\end{bmatrix}
+\end{equation}
+
+\subsection{FT}
+Roots of unity: $X^n = 1$. For the case of $n=2$ there are two roots. For the case when $x^4=1$ there are 4 roots. $x_1=1,x_2=-i,x_3=-1,x+4=-i$ are the four roots of unity.
+
+\begin{equation}
+F_8 = \frac{1}{\sqrt{n}}
+\begin{bmatrix}
+\omega_8^0 & \omega_8^0 & \omega_8^0 & \dots & \omega_8^0 \\
+\omega_8^0 & \omega_8^1 & \omega_8^2 & \dots & \omega_8^7 \\
+\omega_8^0 & \omega_8^2 & \omega_8^4 & \dots & \omega_8^14 \\
+\omega_8^0 & \omega_8^3 & \omega_8^6 & \dots & \omega_8^21 \\
+\omega_8^0 & \omega_8^4 & \omega_8^8 & \dots & \omega_8^28 \\
+\omega_8^0 & \omega_8^5 & \omega_8^10 & \dots & \omega_8^35 \\
+\omega_8^0 & \omega_8^6 & \omega_8^12 & \dots & \omega_8^42 \\
+\omega_8^0 & \omega_8^7 & \omega_8^14 & \dots & \omega_8^49
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+B = FAF
+\end{equation}
+\begin{equation}
+||B|| \leftarrow \text{power spectrum}
+\end{equation}
+
+The power spectrum is spatially invariant in the frequency domain. The convolutional property is valid for a torus. Which is what makes the power spectrum spatially invariant, but only when objects do no lie on the edge.
+
+\section{Final}
+write a report. The report is going to be about Deep learning.
+\begin{enumerate}
+\item Read about deep learning.
+\item Describe an example of a deep learning network
+\item Look at the Activation functions?
+\item Look at the topology of the network:
+\begin{itemize}
+\item pyramids
+\item convolution
+\end{itemize}
+\item Applications
+\end{enumerate}
+
+Send PDF, May 7th, Sat Midnight: rojas@inf.fu-berlin.de
+
+Don't write more than 10 pages.
+\end{document}

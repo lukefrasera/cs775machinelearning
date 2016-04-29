@@ -8,4 +8,45 @@
 \section{Boostrap}
 you run a regression on multiple training sets and then provide a confidence interval based on all of the regression that were solved. This will provide a standard deviation away from the mean of the regressions.
 
+we only have one training set, but we want to simulate that we have multiple training sets. we sample randomly from the training set with replacement. You sample the size of your training set. If your training set has N samples then you will randomly sample with replacement N times. This will produce new mixture of the original training set. This is repeated many times and at the very end we take the mean value of the regressions. You can then build confidence intervals based on the other regressions.
+
+\subsection{Weighted regression}
+Another form will give you the same answer is called weighted regression. This applies a weight to each point on in the data.
+
+\section{Decision Tree}
+A problem with decision trees is that they are biased to the data and over-fit. In order to deal with the problem of over-fitting with decision trees is by applying the boostrap method to them. This method is called bagging.
+
+\subsection{Bagging}
+You randomly sample the data with replacement and generate $K$ training sets. For each training set we generate a classifier tree. Then we can run a sample through each of the tree and get the sum of the output of all of the trees to be our true classification.
+\begin{equation}
+Class(\vec{x}) = \frac{1}{k}\sum_{i=1}^k class_i(\vec{x})
+\end{equation}
+
+In this way you are removing the bias of the decision tree. When you perform this methodology you produce a forest. There are many similarities between ada-boost, SVMs, decision tree, and weighted regression. As they all to some degree place weights on the classifiers.
+
+\subsection{neural network}
+You can apply the same idea of bagging (bootstrapping) to neural networks in-order to build a confidence interval that applies weights to the different trained neural networks.
+
+\section{Random Forests}
+You start with a certain feature size and apply k random direction to decrease the feature size. Then you train a particular classifier on the new lower dimensional data set.
+
+\section{Feature Sensitivity}
+This is a method for determining which features in the data set are relevant and which play a major role.
+
+
+\section{Tree: Feature Selection}
+
+the entropy measure:
+\begin{equation}
+Entropy = \omega_1 E(TS_{s_1}) + \omega_2 E(TS_{s_2}) + \dots + \omega_n E(TS_{s_n})
+\end{equation}
+The most informative feature is the feature that produces the largest decrease in entropy. You choose the feature that produces the largest decrease.
+
+Algorithms:
+\begin{itmeize}
+\item ID3: entropy tree
+\item C4.5: entropy tree for continuous data.
+\end{itmeize}
+
+We can look at the original paper from Breiman to look into the random forests implementation. In random forests you can use whatever classifier you choose.
 \end{document}
