@@ -1,0 +1,55 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{flushend}
+
+\DeclareGraphicsExtensions{.pdf, .jpeg, .png, .jpg}
+\graphicspath{{images/}}
+
+\title{Deep Learning:\\ A Review of the State of the Art}
+\author{Luke Fraser\\
+University of Nevada, Reno}
+\begin{document}
+\maketitle
+\begin{abstract}
+In this assignment we will summarize the uses and work of \emph{Deep Neural Networks}. Deep leaning has produced promising results for machine learning. Training large networks on difficult classification problems has produced machines that are capable of human levels of classification for the first time. These networks are complex and training deep networks comes with many challenges. This paper will provide a brief look at the state of the art in deep learning methods and applications in image classification.
+\end{abstract}
+
+\section{Introduction}
+Deep neural networks have grown in popularity in the past few years as training sets have increased in size and computer hardware has allowed for larger and more complex networks \cite{krizhevsky2012imagenet,sanchez2011high,6248110}. These networks deal with large input datasets and a large number of classification classes. The main challenges of deep learning are defined in the following subsections.
+\subsection{Storage}
+Managing the large datasets required to train modern machine learning approaches is challenging. Recently there has been a lot of effort in producing large labeled datasets \cite{deng2009imagenet,Torralba:2008:MTI:1444381.1444403}. These datasets are very large. Storing the full ImageNet\cite{deng2009imagenet} dataset would take around 23TBs of storage \cite{sanchez2011high}. Such storage is not feasible on any standard hardware. A long with the soring this data when training with such large datasets other challenges manifest themselves. Common large storage mechanisms can not keep up with the CPU needs of a system. This means that while training the most costly aspect of the training is reading and writing data, rather than the cost of the actual training.
+
+To deal with storage limitations methods of dimensionality reduction and data compression have been used. The goal of these methods is to reduce the size of the data input into the classifier to prevent dealing with very high dimensioned data. As well these reduction in size can increase the speed of the classification significantly. This speed up becomes significant when dealing such large datasets and high dimensionality of the data.
+
+\subsubsection{Dimensionality Reduction}
+Reducing the dimensionality of the problem is a popular method for dealing with high dimensional data. Image classification is a common case when dimensionality reduction is critical. Images can have millions of pixels and inputting this data to a classifier can quickly become a non-tractable problem on modern day hardware.
+
+Dense projection techniques are among the most popular methods for dimensionality reduction. Principal Component Analysis (PCA), Partial Least Squares (PLS), and Gaussian Random Projections (RPs) are a few common methods used to project data to lower dimensions \cite{sanchez2011high}. The computational cost of performing these methods is proportional to the input and output dimensions. These methods are well suited when the input dimension is high and the output dimension is small. When small inputs are used on classifiers the performance diminishes with large output classes. Hash kernels were proposed to deal with this problem \cite{shi2009hash,weinberger2009feature}. Hash kernels have been used to compress text features \cite{shi2009hash,weinberger2009feature}.
+
+\subsubsection{Data Compression}
+
+\subsubsection{Summary}
+Overall there is a trade off between storage and accuracy as well as computational cost. It is important to understand the trade offs and control the input to the system to produce acceptable results.
+
+\subsection{Memory}
+Memory is another limiting factor for many deep learning networks. Memory puts a hard limit on the number of neurons that can fit on a computers memory. A lot can be gained from having large networks as more complex training and accuracy can be achieved \cite{krizhevsky2012imagenet}. In \cite{krizhevsky2012imagenet} a large neural network was placed onto two 3GB GPUs. The size of the network was dictated by number of connection and the number of neurons that could fit on each of the GPUs
+
+\subsection{Computational Cost}
+\subsubsection{Hardware}
+
+\subsubsection{Activation Functions}
+\section{Activation Functions}
+\section{Topology}
+
+\subsection{Pyramid}
+\subsection{Convolution}
+
+\section{Application}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs/master}
+\end{document}
